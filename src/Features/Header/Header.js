@@ -1,9 +1,11 @@
 import { MapPin, Search, Filter, Clock, Star, Users, Phone, Navigation } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import '../../index.css';
+import useGeolocation from '../../utils/useGeolocation';
 
-const Header = ()=>{
+const Header = (props)=>{
     const [showDropdown, setShowDropdown] = useState(false);
+    const [currentlocation,setcurrentlocation] = useState(props.currentlocation)
     const [filters, setFilters] = useState({
         location: 'current',
         proximity: 10,
@@ -11,7 +13,6 @@ const Header = ()=>{
         duration: 'week',
         discount: 30
       });
-
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
       };
@@ -35,7 +36,7 @@ const Header = ()=>{
               {/* Current Location */}
               <div className="flex items-center gap-2 text-gray-600 bg-gray-100 px-3 py-2 rounded-lg">
                 <Navigation className="w-4 h-4 text-red-400" />
-                <span className="text-sm">Aligarh, UP</span>
+                <span className="text-sm">{currentlocation}</span>
               </div>
               
               {/* Profile */}

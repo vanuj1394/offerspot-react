@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { MapPin, Search, Filter, Clock, Star, Users, Phone, Navigation } from 'lucide-react';
 import '../../index.css';
 import Header from '../Header/Header'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 const ListingPage = () => {
     let searchtimeout = 0;
     const [originalOffers, setOriginalOffers] = useState([]);
     const [offers, setOffers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-
+    const location = useLocation();
+    const current = location.state;
+    console.log("current",current)
 
 
     const [selectedOffer, setSelectedOffer] = useState(null);
@@ -226,19 +228,16 @@ const ListingPage = () => {
         setOriginalOffers(offer);
         setOffers(offer);
     }, [])
+
     const routeToDetailedPage = (offer) => {
         console.log(offer)
         setSelectedOffer(offer);
-        navigate(`details`, { state: offer })
+        navigate(`/details`, { state: offer })
     }
 
     const SearchOffer = (value) => {
         setSearchQuery(value);
-
-
-
         clearTimeout(searchtimeout)
-
         searchtimeout = setTimeout(() => {
             if (value.trim() === '') {
                 // ⬅️ Reset list when input is empty
@@ -254,10 +253,6 @@ const ListingPage = () => {
 
     };
     // Sample offer data with detailed information
-
-
-
-
     // Offer Details Component
 
 
@@ -265,16 +260,11 @@ const ListingPage = () => {
     // if (selectedOffer) {
     //   return <OfferDetailsPage offer={selectedOffer} onBack={goBack} />;
     // }
-
-
-
-
-
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
 
-            <Header />
+            <Header currentlocation = {current.name} />
             {/* Search Section */}
             <section className="max-w-7xl mx-auto px-4 py-6">
                 <div className="max-w-2xl mx-auto relative">

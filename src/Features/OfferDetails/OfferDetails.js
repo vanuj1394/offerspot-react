@@ -6,7 +6,7 @@ const OfferDetails = () => {
     const navigate = useNavigate()
     const location = useLocation();
     const offer = location.state;
-  
+    console.log(offer)
     const onBack = () => {
       navigate(-1);
     };
